@@ -1,15 +1,7 @@
 package lotto;
 
-import domain.BonusNumber;
-import domain.LottoMachine;
-import domain.PurchaseAmount;
-import domain.Rank;
-import domain.ResultCalculator;
-import domain.WinningNumbers;
-import ui.CsvParser;
-import ui.InputView;
-import ui.NumberParser;
-import ui.OutputView;
+import domain.*;
+import ui.*;
 
 import java.util.List;
 import java.util.Map;
@@ -18,6 +10,8 @@ public class Application {
 
     public static void main(String[] args) {
         int count = readPurchaseCountWithRetry();
+        int purchaseAmount = count * 1000; // 구입 금액 계산
+
         List<Lotto> tickets = LottoMachine.publish(count);
         OutputView.printPurchasedCount(count);
         OutputView.printTickets(tickets);
@@ -27,6 +21,9 @@ public class Application {
 
         Map<Rank, Integer> result = ResultCalculator.calculate(tickets, winning, bonus);
         OutputView.printResult(result);
+
+        double profitRate = ProfitCalculator.calculateRate(result, purchaseAmount);
+        OutputView.printProfitRate(profitRate);
     }
 
     private static int readPurchaseCountWithRetry() {

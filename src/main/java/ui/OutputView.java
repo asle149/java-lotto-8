@@ -38,4 +38,8 @@ public final class OutputView {
             System.out.printf("%s - %d개%n", rank.toString(), count);
         }
     }
+
+    public static void printProfitRate(final double rate) {
+        System.out.printf("총 수익률은 %.1f%%입니다.%n", rate);
+    }
 }
