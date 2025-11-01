@@ -3,6 +3,8 @@ package lotto;
 import domain.BonusNumber;
 import domain.LottoMachine;
 import domain.PurchaseAmount;
+import domain.Rank;
+import domain.ResultCalculator;
 import domain.WinningNumbers;
 import ui.CsvParser;
 import ui.InputView;
@@ -10,6 +12,7 @@ import ui.NumberParser;
 import ui.OutputView;
 
 import java.util.List;
+import java.util.Map;
 
 public class Application {
 
@@ -22,6 +25,8 @@ public class Application {
         WinningNumbers winning = readWinningNumbersWithRetry();
         BonusNumber bonus = readBonusNumberWithRetry(winning);
 
+        Map<Rank, Integer> result = ResultCalculator.calculate(tickets, winning, bonus);
+        OutputView.printResult(result);
     }
 
     private static int readPurchaseCountWithRetry() {
