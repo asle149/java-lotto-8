@@ -32,8 +32,9 @@ public final class OutputView {
         printBlankLine();
         System.out.println("당첨 통계");
         System.out.println("---");
-        for (Rank rank : Rank.values()) {
-            if (rank == Rank.MISS) continue;
+
+        Rank[] order = { Rank.FIFTH, Rank.FOURTH, Rank.THIRD, Rank.SECOND, Rank.FIRST };
+        for (Rank rank : order) {
             int count = result.getOrDefault(rank, 0);
             System.out.printf("%s - %d개%n", rank.toString(), count);
         }
